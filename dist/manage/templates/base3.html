@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SIFO MUSIK</title>
+    
+    
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        
+        
+    <link rel="icon" href="{% static 'music-player.png' %}">
+    
+
+    
+    <script src="{% static 'js/1f06ccc41e.js' %}"></script>
+    
+    {% block head %}
+
+
+    {% endblock %}
+
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        .song_nav a {
+            color: rgb(253, 61, 80);
+            padding: 8px;
+            font-weight: bold;
+
+        }
+
+        #footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+        }
+
+        .avatar {
+            vertical-align: middle;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 10000;
+            top: 0;
+            left: 0;
+            background: rgb(160, 63, 251);
+            background: linear-gradient(63deg, rgba(160, 63, 251, 1) 0%, rgba(252, 70, 114, 1) 81%);
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidebar a,
+        h5,
+        i {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 20px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+            font-weight: bolder
+        }
+
+        .sidebar a:hover {
+            color: whitesmoke;
+        }
+
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background: white;
+            color: black;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 50%;
+        }
+
+        .openbtn:hover {
+            background: rgba(252, 70, 114, 1);
+        }
+
+        .inline-group:valid {
+            border: 2px solid rgb(253, 61, 80);
+        }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 20px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidebar {
+                padding-top: 15px;
+            }
+
+            .sidebar a {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container ">
+        <header>
+            <div class="row">
+                <div class="col-md-6">
+                    <a style="color: rgb(253, 61, 80); font-weight: bolder;font-size: 40px;" href="{% url 'Home' %}"
+                        class="navbar-brand">SIFO MUSIC</a>
+                </div>
+                <div class="col-md-6">
+                    <form action="{% url 'Search' %}" method="GET" class="form-group mt-3 my-lg-0 pt-3">
+                        <div class="input-group mt-1">
+                            <input name="search" type="text" class="form-control " placeholder="search">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr style="background-color:rgb(253, 61, 80); color:rgb(253, 61, 80); ">
+            <div class="pt-1 song_nav">
+                <a href="{% url 'Home' %}">Songs</a>
+                <a href="{% url 'Albums' %}">Albums</a>
+                <a href="{% url 'Artist' %}">Artist</a>
+            </div>
+
+        </header>
+        <section>
+            <div id="mySidebar" class="sidebar">
+
+
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+
+                {% if not user.is_authenticated %}
+                <h5>Username : Not login</h5>
+                {% else %}
+                <div class="container">
+                    <img class="img-thumbnail rounded-circle" width="150px" height="150px" alt="Responsive image"
+                        src="{{ user.profile.image.url }}">
+                </div>
+                <br>
+                <h5>{{ user.username }}</h5>
+                <!-- user profile -->
+                <a data-target="#user{{ user.id }}" data-toggle="modal" href="#user{{ user.id }}">profile</a>
+                <!-- Modal -->
+                <div class="modal fade" id="user{{ user.id }}" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="application">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2 style="font-weight: bolder;  color:blueviolet;" class="modal-title">
+                                    {{ user.get_full_name }}</h2>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <img class="img-thumbnail rounded-circle" width="200px" height="200px"
+                                            alt="Responsive image" src="{{ user.profile.image.url }}">
+                                    </div>
+                                    <div class="col-6">
+                                        <ul style="font-weight: bold;list-style-type:none;">
+                                            <br>
+                                            <li>Username: {{ user.username }}</li>
+                                            <br>
+                                            <li>Location: {{ user.profile.location }}</li>
+                                            <br>
+                                            <li>Birth Date: {{ user.profile.birth_date }}</li>
+                                            <br>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer text-center">
+                                <a style="color: red;" href="{% url 'Edit' %}">Edit profile</a>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end -->
+                {% endif %}
+
+                <hr width="80%">
+                {% if not user.is_authenticated %}
+                <a href="{% url 'SignUp' %}">Creat account</a>
+                <a href="{% url 'Login' %}">Login </a>
+                {% endif %}
+                {% if  user.is_authenticated %}
+                <a href="javascript:{document.getElementById('Logout').submit()}">LogOut</a>
+                <form id="Logout" method="POST" action="{% url 'Logout' %}">
+                    {% csrf_token %}
+                </form>
+                {% endif %}
+            </div>
+            <div id="main">
+                <button class="openbtn" onclick="openNav()">☰</button>
+                <div class="container-fluid">
+                    {% block body %}
+                    {% endblock %}
+                </div>
+            </div>
+        </section>
+
+        <footer id="footer">
+            <div class="container text-center">
+                <h6 style="font-weight: bold; color:rgb(253, 61, 80); color:rgb(253, 61, 80);" class="text_color">©
+                    Ashkan Ganj {% now "Y" %}</h6>
+            </div>
+        </footer>
+    </div>
+    <script>
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "200px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+    </script>
+  
+        
+        <script src="{% static 'js/jquery-3.4.1.slim.min.js' %}"></script>
+   
+
+        <script src="{% static 'js/popper.min.js' %}"></script>
+
+        
+        
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        
+        
+        
+</body>
+
+</html>
