@@ -18,7 +18,11 @@ HOW TO RUN IT WITH PYTHON
 
 -----------------
 
-2. insatll python3
+2. install python3
+
+and create virt env 
+
+we can use conda / mini conda
 
 
 -------------------------
