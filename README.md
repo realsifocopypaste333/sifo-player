@@ -14,7 +14,7 @@ this is a music server , created with python django :) its like simple spotify s
 
 HOW TO RUN IT WITH PYTHON
 
-1. install gnbu linux os
+1. install gnu linux os
 
 -----------------
 
@@ -126,13 +126,13 @@ open with web browser (firefox, chromium / libre wolf etc)
 or 
 
 
-./manage ip:port
+./manage runserver ip:port
 
 
 examample
 
 
-./manage 192.168.43.135:3333
+./manage runserver 192.168.43.135:3333
 
 
 
