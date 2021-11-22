@@ -165,7 +165,7 @@ git clone
 
 2. install req.txt
 
-pip install req.txt
+pip install -r req.txt
 
 
 ================
