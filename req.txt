@@ -1,15 +1,15 @@
-altgraph @ file:///home/conda/feedstock_root/build_artifacts/altgraph_1632761154050/work
+altgraph 
 asgiref==3.4.1
 certifi==2021.10.8
 charset-normalizer==2.0.7
 Django==3.0.2
 django-distill==2.9.0
 idna==3.3
-macholib @ file:///home/conda/feedstock_root/build_artifacts/macholib_1595268426755/work
+macholib 
 Pillow==7.0.0
-pycryptodome @ file:///tmp/build/80754af9/pycryptodome_1613764578245/work
+pycryptodome 
 pyinstaller==4.7
-pyinstaller-hooks-contrib @ file:///home/conda/feedstock_root/build_artifacts/pyinstaller-hooks-contrib_1629940154869/work
+pyinstaller-hooks-contrib 
 pytz==2021.3
 pyz==0.4.3
 requests==2.26.0
